@@ -1,81 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Translation Order Form</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
-    body { font-family: Arial, sans-serif; margin: 40px; max-width: 700px; }
-    label { font-weight: bold; display: block; margin-top: 20px; }
-    input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; }
-    .total-box { font-size: 22px; margin-top: 30px; font-weight: bold; }
+    body {
+        margin: 0;
+        padding: 0;
+        background: #f7f7f7;
+        font-family: 'Lato', sans-serif;
+        color: #2C3A59;
+    }
+
+    .container {
+        max-width: 650px;
+        margin: 50px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #2C3A59;
+        text-align: center;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 18px;
+        display: block;
+        color: #2C3A59;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border: 1px solid #d7d7d7;
+        border-radius: 8px;
+        font-size: 15px;
+        background: #fafafa;
+        transition: 0.2s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: #C7A245;
+        background: #fff;
+        box-shadow: 0 0 0 2px rgba(199,162,69,0.15);
+    }
+
+    .total-box {
+        font-size: 24px;
+        margin-top: 30px;
+        text-align: center;
+        font-weight: 700;
+        color: #2C3A59;
+    }
+
     .button-pay {
-        background: #1a73e8;
+        background: #2C3A59;
         color: white;
-        padding: 15px;
+        padding: 16px;
         font-size: 18px;
         border: none;
         cursor: pointer;
         width: 100%;
-        margin-top: 20px;
+        border-radius: 10px;
+        margin-top: 25px;
+        font-weight: 700;
+        transition: 0.25s;
+    }
+
+    .button-pay:hover {
+        background: #C7A245;
     }
 </style>
 </head>
+
 <body>
 
-<h2>Translation Order Form</h2>
+<div class="container">
+    <h2>Translation Order Form</h2>
 
-<form id="translationForm">
+    <form id="translationForm">
 
-<label>Source Language</label>
-<input type="text" id="sourceLanguage" required>
+        <label>Source Language</label>
+        <input type="text" id="sourceLanguage" required>
 
-<label>Target Language</label>
-<input type="text" id="targetLanguage" required>
+        <label>Target Language</label>
+        <input type="text" id="targetLanguage" required>
 
-<label>Additional Target Language (Optional)</label>
-<input type="text" id="additionalTarget">
+        <label>Additional Target Language (Optional)</label>
+        <input type="text" id="additionalTarget">
 
-<label>Total Number Of Pages Needing Translation</label>
-<input type="number" id="pages" min="1" required>
+        <label>Total Number Of Pages Needing Translation</label>
+        <input type="number" id="pages" min="1" required>
 
-<label>Are your translations for USCIS or US immigration purposes?</label>
-<select id="uscis">
-    <option>No</option>
-    <option>Yes</option>
-</select>
+        <label>Are your translations for USCIS or US immigration purposes?</label>
+        <select id="uscis">
+            <option>No</option>
+            <option>Yes</option>
+        </select>
 
-<label>Do you need your translation notarized?</label>
-<select id="notarized">
-    <option>No</option>
-    <option>Yes</option>
-</select>
+        <label>Do you need your translation notarized?</label>
+        <select id="notarized">
+            <option>No</option>
+            <option>Yes</option>
+        </select>
 
-<label>Do you need rush service?</label>
-<select id="rush">
-    <option>No</option>
-    <option>Yes</option>
-</select>
+        <label>Do you need rush service?</label>
+        <select id="rush">
+            <option>No</option>
+            <option>Yes</option>
+        </select>
 
-<label>Deadline Confirmation</label>
-<select id="deadline" required>
-    <option value="">— Select —</option>
-    <option>I confirm I placed my order before the cutoff OR selected rush</option>
-</select>
+        <label>Deadline Confirmation</label>
+        <select id="deadline" required>
+            <option value="">— Select —</option>
+            <option>I confirm I placed my order before the cutoff OR selected rush</option>
+        </select>
 
-<label>Special Comments</label>
-<textarea id="comments" rows="5"></textarea>
+        <label>Special Comments</label>
+        <textarea id="comments" rows="5"></textarea>
 
-<div class="total-box">
-    Total Amount Due: $<span id="total">0</span>
+        <div class="total-box">
+            Total Amount Due: $<span id="total">0</span>
+        </div>
+
+        <button type="button" class="button-pay" onclick="goToPayment()">
+            Proceed to Payment
+        </button>
+    </form>
 </div>
 
-<button type="button" class="button-pay" onclick="goToPayment()">
-    Proceed to Payment
-</button>
-
-</form>
-
 <script>
+// CALCULATE TOTAL
 function calculateTotal() {
     let pages = parseInt(document.getElementById("pages").value) || 0;
     let rush = document.getElementById("rush").value;
@@ -86,33 +158,27 @@ function calculateTotal() {
         return;
     }
 
-    // BASE PRICE
-    let base = 75; // first page
-    if (pages > 1) {
-        base += (pages - 1) * 50;
-    }
+    // BASE PRICE: $75 first page, $50 each additional
+    let base = 75;
+    if (pages > 1) base += (pages - 1) * 50;
 
     // NOTARIZATION +$75
-    if (notarized === "Yes") {
-        base += 75;
-    }
+    if (notarized === "Yes") base += 75;
 
     // RUSH +50%
-    if (rush === "Yes") {
-        base *= 1.5;
-    }
+    if (rush === "Yes") base *= 1.5;
 
-    // STRIPE FEES (2.9% + $0.30)
+    // STRIPE FEES
     let withFees = base * 1.029 + 0.30;
 
-    // ROUND UP TO NEXT WHOLE DOLLAR
+    // ROUND UP
     let finalTotal = Math.ceil(withFees);
 
     document.getElementById("total").innerText = finalTotal;
     return finalTotal;
 }
 
-// Recalculate when inputs change
+// Recalculate on input
 document.querySelectorAll("input, select").forEach(el => {
     el.addEventListener("input", calculateTotal);
     el.addEventListener("change", calculateTotal);
@@ -126,7 +192,7 @@ function goToPayment() {
         return;
     }
 
-    // REDIRECT TO STRIPE CHECKOUT (Manual Capture Session)
+    // Replace this with your Stripe Checkout URL
     window.location.href = "https://your-manual-capture-checkout-link-here";
 }
 </script>
