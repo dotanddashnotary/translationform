@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Translation Order Form</title>
+<title>Dot & Dash Mobile Notary | Translation Order Form</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
     --navy:#2C3A59;
+    --brand:#314368;
     --gold:#C7A245;
     --bg:#F6F7FB;
     --card:#FFFFFF;
@@ -17,6 +18,8 @@
     --muted:#5A6475;
     --line:#E5E7EF;
     --field:#FAFBFF;
+    --warn-bg:#FFF8E8;
+    --warn-line:#E9D39A;
   }
 
   *{ box-sizing:border-box; }
@@ -42,24 +45,34 @@
     overflow:hidden;
   }
 
-  .header{
-    padding:28px 28px 16px;
-    border-bottom:1px solid var(--line);
+  .branding{
+    text-align:center;
+    padding:28px 24px 10px;
     background:linear-gradient(180deg, rgba(199,162,69,.10), rgba(255,255,255,0));
+    border-bottom:1px solid var(--line);
   }
 
-  h1{
+  .branding img{
+    max-width:150px;
+    width:100%;
+    height:auto;
+    display:block;
+    margin:0 auto 12px;
+  }
+
+  .branding h1{
     margin:0;
     font-family:'Playfair Display',serif;
-    font-size:34px;
-    line-height:1.15;
-    color:var(--navy);
+    font-size:30px;
+    line-height:1.2;
+    color:#314368;
+    font-weight:600;
   }
 
-  .sub{
-    margin:10px 0 0;
+  .branding p{
+    margin:8px 0 0;
     color:var(--muted);
-    font-size:15px;
+    font-size:14px;
   }
 
   form{
@@ -98,7 +111,10 @@
     transition:.15s ease;
   }
 
-  .field textarea{ resize:vertical; min-height:110px; }
+  .field textarea{
+    resize:vertical;
+    min-height:110px;
+  }
 
   .field input:focus,
   .field select:focus,
@@ -108,21 +124,54 @@
     background:#fff;
   }
 
+  .helper{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.45;
+  }
+
+  .info-box,
+  .turnaround,
+  .payment-message,
+  .warning-message{
+    padding:14px 16px;
+    border-radius:12px;
+    font-size:14px;
+    line-height:1.55;
+  }
+
+  .info-box{
+    border:1px solid rgba(199,162,69,.35);
+    background:rgba(199,162,69,.10);
+    color:var(--navy);
+  }
+
+  .turnaround{
+    border:1px solid rgba(199,162,69,.35);
+    background:rgba(199,162,69,.10);
+    color:var(--navy);
+    display:none;
+  }
+
+  .payment-message{
+    border:1px solid rgba(44,58,89,.15);
+    background:#f8f9fc;
+    color:var(--navy);
+    display:none;
+  }
+
+  .warning-message{
+    border:1px solid var(--warn-line);
+    background:var(--warn-bg);
+    color:var(--navy);
+    display:none;
+  }
+
   .divider{
     margin:18px 0;
     height:1px;
     background:var(--line);
-  }
-
-  .turnaround{
-    margin-top:6px;
-    padding:12px 14px;
-    border:1px solid rgba(199,162,69,.35);
-    background:rgba(199,162,69,.10);
-    border-radius:12px;
-    font-size:14px;
-    color:var(--navy);
-    display:none;
   }
 
   .total{
@@ -163,9 +212,15 @@
     background:var(--navy);
     color:#fff;
   }
+
   .btn-primary:hover{
     background:var(--gold);
     color:#1b2438;
+  }
+
+  .btn[disabled]{
+    opacity:.55;
+    cursor:not-allowed;
   }
 
   .note{
@@ -180,8 +235,10 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="header">
-        <h1>Translation Order Form</h1>
+      <div class="branding">
+        <img src="logo3.png" alt="Dot & Dash Mobile Notary Logo">
+        <h1>Dot &amp; Dash Mobile Notary</h1>
+        <p>Translation Order Form</p>
       </div>
 
       <form id="translationForm">
@@ -204,6 +261,12 @@
           </div>
         </div>
 
+        <div class="grid">
+          <div class="info-box">
+            Per-page rates are based on a maximum of 225 words per page. If your document exceeds that, an extra fee will be applied.
+          </div>
+        </div>
+
         <div class="grid two">
           <div class="field">
             <label for="pages">Total Number Of Pages Needing Translation</label>
@@ -221,10 +284,32 @@
 
         <div class="grid two">
           <div class="field">
-            <label for="aitaCertified">Does the document need to be AITA certified?</label>
+            <label for="aitaCertified">Does the document need to be translated by an AITA-certified translator?</label>
             <select id="aitaCertified">
               <option>No</option>
               <option>Yes</option>
+            </select>
+            <div class="helper">
+              Non-AITA service is only available for English to Spanish and Spanish to English translations.
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="swornTranslation">Do you need sworn translation services?</label>
+            <select id="swornTranslation">
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="field">
+            <label for="apostille">Do you need your translation apostilled?</label>
+            <select id="apostille">
+              <option>No</option>
+              <option>Yes</option>
+              <option>Both</option>
             </select>
           </div>
 
@@ -260,6 +345,25 @@
         </div>
 
         <div class="grid">
+          <div id="paymentMessage" class="payment-message"></div>
+        </div>
+
+        <div class="grid">
+          <div id="warningMessage" class="warning-message"></div>
+        </div>
+
+        <div class="grid">
+          <div class="info-box">
+            <strong>IMPORTANT!</strong> 1 working day is considered the day after placing an order, not the same day!<br><br>
+            1 – 4 pages: 1 – 2 working days<br>
+            5 – 8 pages: 2 – 3 working days<br>
+            9 – 12 pages: 3 – 4 working days<br>
+            13 – 16 pages: 4 – 5 working days<br>
+            16 pages +: We will contact you via email to confirm.
+          </div>
+        </div>
+
+        <div class="grid">
           <div class="field">
             <label for="comments">Special Comments</label>
             <textarea id="comments" rows="5"></textarea>
@@ -274,7 +378,7 @@
         </div>
 
         <div class="actions">
-          <button type="button" class="btn btn-primary" onclick="goToPayment()">
+          <button type="button" class="btn btn-primary" id="paymentButton" onclick="goToPayment()">
             Proceed to Payment
           </button>
         </div>
@@ -288,19 +392,46 @@
 
 <script>
   const STRIPE_LINK = "https://buy.stripe.com/cN2eXCfM5b5a6Ig8ww";
+  const ZELLE_LINK = "https://YOUR-ZELLE-PAYMENT-PAGE-LINK-HERE";
 
   function normalizeLanguage(value) {
-    return value.trim().toLowerCase();
+    return value.trim().toLowerCase().replace(/\s+/g, " ");
+  }
+
+  function isEnglishSpanishPair() {
+    const sourceLanguage = normalizeLanguage(document.getElementById("sourceLanguage").value);
+    const targetLanguage = normalizeLanguage(document.getElementById("targetLanguage").value);
+
+    const englishToSpanish =
+      (sourceLanguage === "english" || sourceLanguage === "en") &&
+      (targetLanguage === "spanish" || targetLanguage === "es");
+
+    const spanishToEnglish =
+      (sourceLanguage === "spanish" || sourceLanguage === "es") &&
+      (targetLanguage === "english" || targetLanguage === "en");
+
+    return englishToSpanish || spanishToEnglish;
+  }
+
+  function getPageBasedTurnaround(pages) {
+    if (pages >= 1 && pages <= 4) return "Estimated turnaround time: 1 – 2 working days.";
+    if (pages >= 5 && pages <= 8) return "Estimated turnaround time: 2 – 3 working days.";
+    if (pages >= 9 && pages <= 12) return "Estimated turnaround time: 3 – 4 working days.";
+    if (pages >= 13 && pages <= 16) return "Estimated turnaround time: 4 – 5 working days.";
+    if (pages >= 17) return "Estimated turnaround time: We will contact you via email to confirm.";
+    return "";
   }
 
   function updateTurnaroundMessage() {
-    const sourceLanguage = normalizeLanguage(document.getElementById("sourceLanguage").value);
-    const targetLanguage = normalizeLanguage(document.getElementById("targetLanguage").value);
     const aitaCertified = document.getElementById("aitaCertified").value;
+    const pages = parseInt(document.getElementById("pages").value, 10) || 0;
     const turnaroundMessage = document.getElementById("turnaroundMessage");
 
-    const isEnglishToSpanish = sourceLanguage === "english" && targetLanguage === "spanish";
-    const isSpanishToEnglish = sourceLanguage === "spanish" && targetLanguage === "english";
+    if (pages < 1) {
+      turnaroundMessage.innerText = "";
+      turnaroundMessage.style.display = "none";
+      return;
+    }
 
     if (aitaCertified === "Yes") {
       turnaroundMessage.innerText = "Estimated turnaround time: approximately 4 days.";
@@ -308,8 +439,16 @@
       return;
     }
 
-    if (aitaCertified === "No" && (isEnglishToSpanish || isSpanishToEnglish)) {
+    if (aitaCertified === "No" && isEnglishSpanishPair() && pages <= 4) {
       turnaroundMessage.innerText = "Estimated turnaround time: within 48 hours.";
+      turnaroundMessage.style.display = "block";
+      return;
+    }
+
+    const pageBasedMessage = getPageBasedTurnaround(pages);
+
+    if (pageBasedMessage) {
+      turnaroundMessage.innerText = pageBasedMessage;
       turnaroundMessage.style.display = "block";
       return;
     }
@@ -318,30 +457,71 @@
     turnaroundMessage.style.display = "none";
   }
 
+  function updatePaymentMessage() {
+    const aitaCertified = document.getElementById("aitaCertified").value;
+    const paymentMessage = document.getElementById("paymentMessage");
+    const paymentButton = document.getElementById("paymentButton");
+
+    if (aitaCertified === "Yes") {
+      paymentMessage.innerText = "AITA-certified translations are paid online by card through our secure checkout.";
+      paymentMessage.style.display = "block";
+      paymentButton.innerText = "Proceed to Payment";
+      return;
+    }
+
+    if (isEnglishSpanishPair()) {
+      paymentMessage.innerText = "Non-AITA English/Spanish translations are paid via Zelle. You will be taken to the Zelle payment page after continuing.";
+      paymentMessage.style.display = "block";
+      paymentButton.innerText = "Continue to Zelle Payment";
+      return;
+    }
+
+    paymentMessage.innerText = "";
+    paymentMessage.style.display = "none";
+    paymentButton.innerText = "Proceed to Payment";
+  }
+
+  function updateWarningMessage() {
+    const aitaCertified = document.getElementById("aitaCertified").value;
+    const warningMessage = document.getElementById("warningMessage");
+    const paymentButton = document.getElementById("paymentButton");
+
+    if (aitaCertified === "No" && !isEnglishSpanishPair()) {
+      warningMessage.innerText = "Non-AITA service is only available for English to Spanish and Spanish to English translations. For any other language pair, please select “Yes” for an AITA-certified translator.";
+      warningMessage.style.display = "block";
+      paymentButton.disabled = true;
+      return;
+    }
+
+    warningMessage.innerText = "";
+    warningMessage.style.display = "none";
+    paymentButton.disabled = false;
+  }
+
   function calculateTotal() {
     const pages = parseInt(document.getElementById("pages").value, 10) || 0;
     const rush = document.getElementById("rush").value;
     const notarized = document.getElementById("notarized").value;
+    const aitaCertified = document.getElementById("aitaCertified").value;
 
     if (pages < 1) {
       document.getElementById("total").innerText = "0";
       return 0;
     }
 
-    // BASE PRICE
     let base = 75;
     if (pages > 1) base += (pages - 1) * 50;
 
-    // NOTARIZATION +$75
     if (notarized === "Yes") base += 75;
-
-    // RUSH +50%
     if (rush === "Yes") base *= 1.5;
 
-    // STRIPE FEES
-    const withFees = base * 1.029 + 0.30;
+    let finalTotal = base;
 
-    const finalTotal = Math.ceil(withFees);
+    if (aitaCertified === "Yes") {
+      finalTotal = Math.ceil(base * 1.029 + 0.30);
+    } else {
+      finalTotal = Math.ceil(base);
+    }
 
     document.getElementById("total").innerText = finalTotal;
     return finalTotal;
@@ -350,6 +530,8 @@
   function handleFormUpdates() {
     calculateTotal();
     updateTurnaroundMessage();
+    updatePaymentMessage();
+    updateWarningMessage();
   }
 
   document.querySelectorAll("input, select, textarea").forEach(el => {
@@ -359,14 +541,33 @@
 
   function goToPayment() {
     const total = calculateTotal();
-    if (!total || total < 1) return alert("Please enter a valid page count.");
-    if (!document.getElementById("deadline").value) return alert("Please confirm the deadline selection.");
+    const aitaCertified = document.getElementById("aitaCertified").value;
 
-    if (!STRIPE_LINK || STRIPE_LINK.includes("PASTE_YOUR_STRIPE_LINK_HERE")) {
-      return alert("Stripe link not set yet. Paste your Stripe link into the STRIPE_LINK variable in the code.");
+    if (!total || total < 1) {
+      return alert("Please enter a valid page count.");
     }
 
-    window.location.href = STRIPE_LINK;
+    if (!document.getElementById("deadline").value) {
+      return alert("Please confirm the deadline selection.");
+    }
+
+    if (aitaCertified === "No" && !isEnglishSpanishPair()) {
+      return alert("Non-AITA service is only available for English to Spanish and Spanish to English translations. Please select “Yes” for an AITA-certified translator to continue.");
+    }
+
+    if (aitaCertified === "Yes") {
+      if (!STRIPE_LINK || STRIPE_LINK.includes("PASTE_YOUR_STRIPE_LINK_HERE")) {
+        return alert("Stripe link not set yet. Paste your Stripe link into the STRIPE_LINK variable in the code.");
+      }
+      window.location.href = STRIPE_LINK;
+      return;
+    }
+
+    if (!ZELLE_LINK || ZELLE_LINK.includes("YOUR-ZELLE-PAYMENT-PAGE-LINK-HERE")) {
+      return alert("Zelle payment page link not set yet. Paste your Zelle page link into the ZELLE_LINK variable in the code.");
+    }
+
+    window.location.href = ZELLE_LINK;
   }
 
   handleFormUpdates();
